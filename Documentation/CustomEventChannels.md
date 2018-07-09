@@ -45,5 +45,19 @@ To do this, stop the Windows Event collector service with `net stop Wecsvc`, the
 
 Remember to set up new size limits and custom paths for your new log channels.
 
+## Relocating Event logs En Masse
+
+Use the command `wevtutil sl /lfn:[new-file-path] /ms:[new-max-size]` to both resize and relocate a log file. 
+
+**Note: ms should be set in bytes**
+
+You can use this in a loop with:
+
+```
+$channels = wevtutil el | select-string -pattern "WEF"
+foreach ($sub in $channels) {
+    wevtutil sl $sub /ms:90000000000 /lfn:"D:\EventLogs\$sub.evtx"
+}
+
 **_Resources_**
 1. [Creating Custom Windows Event Forwarding Logs](https://blogs.technet.microsoft.com/russellt/2016/05/18/creating-custom-windows-event-forwarding-logs/)
