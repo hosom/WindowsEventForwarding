@@ -37,5 +37,13 @@ Load the custom event channels by using the following command in an elevated com
 
 If the command is successful, you should expect no output from the command prompt. 
 
+## Unload the Custom Event Channel DLL
+
+If you wish to update your custom event channel DLL, you'll have to unload the DLL.
+
+To do this, stop the Windows Event collector service with `net stop Wecsvc`, then unload the current event channel file with `wevutil um c:\windows\system32\CustomEventChannels.man`.
+
+Remember to set up new size limits and custom paths for your new log channels.
+
 **_Resources_**
 1. [Creating Custom Windows Event Forwarding Logs](https://blogs.technet.microsoft.com/russellt/2016/05/18/creating-custom-windows-event-forwarding-logs/)
